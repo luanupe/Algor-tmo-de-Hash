@@ -1,7 +1,9 @@
 package dois.redes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -18,25 +20,58 @@ public class Main {
 	 * mesmo se a combinação de letras da palavra for a mesma.
 	 */
 	public static void main(String[] args) {
-		List<String> entradas = new ArrayList<String>();
-		entradas.add("Luan");
-		entradas.add("nauL");
-		entradas.add("LuAn");
-		entradas.add("nAuL");
+		Main main = new Main();
+		main.iniciarEntradas();
+		main.iniciarHASH();
+		main.resultado();
+	}
 
-		entradas.add("Erick");
-		entradas.add("kcirE");
-		entradas.add("ErIcK");
-		entradas.add("KcIrE");
+	private List<String> entradas;
+	private Map<String, Hash> tabela;
 
+	public Main() {
+		this.entradas = new ArrayList<String>();
+		this.tabela = new HashMap<String, Hash>();
+	}
+
+	private void iniciarEntradas() {
+		this.entradas.add("Luan");
+		this.entradas.add("nauL");
+		this.entradas.add("LuAn");
+		this.entradas.add("nAuL");
+		this.entradas.add("Erick");
+		this.entradas.add("kcirE");
+		this.entradas.add("ErIcK");
+		this.entradas.add("KcIrE");
+	}
+
+	private void iniciarHASH() {
 		for (String entrada : entradas) {
 			Hash hash = new Hash(entrada);
-			String saida = hash.getHash();
+			this.tabela.put(entrada, hash);
+			hash.iniciar();
+		}
+	}
 
+	private void resultado() {
+		for (Map.Entry<String, Hash> hash : this.tabela.entrySet()) {
+			String entrada = hash.getKey();
+			String saida = hash.getValue().getHash();
+			
 			System.out.println("[" + entrada.length() + "] INPUT: '" + entrada + "'");
 			System.out.println("[" + saida.length() +"] HASH: '" + saida + "'");
+			System.out.println("SEMELHANÇA: ");
+			
+			for (Hash h : this.tabela.values()) {
+				if ((hash.getValue() != h)) {
+					System.out.println(saida + " == " + h.getHash() + ": " + hash.getValue().matches(h));
+				}
+			}
+			
 			System.out.println();
 		}
 	}
+
+	
 
 }

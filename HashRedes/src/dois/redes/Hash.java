@@ -10,7 +10,7 @@ package dois.redes;
 public class Hash {
 
 	public static final byte[] HASH_HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D' ,'E', 'F' };
-	public static final int HASH_TAMANHO = 64;
+	public static final int HASH_TAMANHO = 32;
 
 	/**/
 
@@ -30,11 +30,18 @@ public class Hash {
 	 * Basicamente dividi o sistema de Hash em 3 etapas: 
 	 * Preparação, nivelamento e conversão em hexadecimal
 	 */
-	public String getHash() {
+	public void iniciar() {
 		this.preparar();
 		this.nivelar();
 		this.converter();
+	}
+
+	public String getHash() {
 		return new String(this.hash);
+	}
+
+	public byte[] getBytes() {
+		return this.hash;
 	}
 
 	/*
@@ -57,7 +64,7 @@ public class Hash {
 		int resultado = 0;
 
 		for (int i = 0; i < tamanho; ++i) { // Primeiro loop
-			resultado += (this.hash[i] * 11) / (Hash.HASH_TAMANHO + i);
+			resultado += (this.hash[i] * 397) / (Hash.HASH_TAMANHO + i);
 			
 			for (int j = 0; j <= this.multiplicador; ++j) { // Segundo loop
 				byte valor = (byte) ((this.hash[i] * (resultado * (j + 1))) % 256);
@@ -114,6 +121,16 @@ public class Hash {
 			}
 			this.hash[i] = Hash.HASH_HEX[this.hash[i]];
 		}
+	}
+
+	public int matches(Hash hash) {
+		int total = 0;
+		for (int i = 0; i < Hash.HASH_TAMANHO; ++i) {
+			if ((this.hash[i] == hash.getBytes()[i])) {
+				total += 1;
+			}
+		}
+		return total;
 	}
 
 }
