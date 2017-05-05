@@ -35,21 +35,23 @@ public class Main {
 	}
 
 	private void iniciarEntradas() {
-		this.entradas.add("Luan");
+		this.entradas.add("Luan Augusto, Erick Mayon, Universidade de Pernambuco, UPE Caruaru, Dois Mil e Dezessete, CHAPA DOIS!!!!!");
+		
+		/*this.entradas.add("Luan");
 		this.entradas.add("nauL");
 		this.entradas.add("LuAn");
 		this.entradas.add("nAuL");
 		this.entradas.add("Erick");
 		this.entradas.add("kcirE");
 		this.entradas.add("ErIcK");
-		this.entradas.add("KcIrE");
+		this.entradas.add("KcIrE");*/
 	}
 
 	private void iniciarHASH() {
 		for (String entrada : entradas) {
 			Hash hash = new Hash(entrada);
-			this.tabela.put(entrada, hash);
 			hash.iniciar();
+			this.tabela.put(entrada, hash);
 		}
 	}
 
@@ -60,13 +62,13 @@ public class Main {
 			
 			System.out.println("[" + entrada.length() + "] INPUT: '" + entrada + "'");
 			System.out.println("[" + saida.length() +"] HASH: '" + saida + "'");
-			System.out.println("SEMELHANÇA: ");
+			/*System.out.println("SEMELHANÇA: ");
 			
 			for (Hash h : this.tabela.values()) {
 				if ((hash.getValue() != h)) {
-					System.out.println(saida + " == " + h.getHash() + ": " + hash.getValue().matches(h));
+					System.out.println(h.getHash() + ": " + hash.getValue().matches(h));
 				}
-			}
+			}*/
 			
 			System.out.println();
 		}
